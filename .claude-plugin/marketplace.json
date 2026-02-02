@@ -8,9 +8,9 @@
   },
   "plugins": [
     {
-      "name": "frontend-design",
+      "name": "devflow",
       "source": ".",
-      "description": "Builds production-grade, polished interfaces using React, Tailwind CSS, and shadcn/ui — following the project's design system with high attention to detail."
+      "description": "Claude Code plugins for enhanced development workflows — frontend design skills, commands, and MCP integrations."
     }
   ]
 }
