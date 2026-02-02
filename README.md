@@ -1,4 +1,4 @@
-# devflow-frontend-design
+# devflow - plugin
 
 A Claude Code plugin that improves frontend code quality by enforcing your project's design system. Includes MCP integrations for database access, documentation lookup, browser testing, and DevTools debugging.
 
@@ -18,10 +18,22 @@ Automatically activates when building UI components. Reads your project's `desig
 
 ## Installation
 
-Add as a plugin directory:
+### From marketplace (recommended)
 
-```bash
-claude --plugin-dir /path/to/devflow-frontend-design
+```
+/plugin marketplace add Multek-Company/devflow
+/plugin install devflow@devflow
+```
+
+Then restart Claude Code.
+
+### From local path
+
+If you have the repo cloned locally:
+
+```
+/plugin marketplace add ./path/to/devflow
+/plugin install devflow@devflow
 ```
 
 ## Prerequisites
@@ -67,17 +79,24 @@ Once installed, the plugin works automatically:
 ## Plugin Structure
 
 ```
-devflow-frontend-design/
+devflow/                          # marketplace repo
 ├── .claude-plugin/
-│   └── plugin.json
-├── .mcp.json
-├── skills/
-│   └── frontend-design/
-│       ├── SKILL.md
-│       ├── references/
-│       │   ├── design-system-template.md
-│       │   └── component-checklist.md
-│       └── examples/
-│           └── design-system-example.md
+│   └── marketplace.json          # plugin catalog
+├── plugins/
+│   └── devflow/                  # the plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       ├── .mcp.json
+│       ├── commands/
+│       │   └── frontend-design/
+│       │       └── create-design-system.md
+│       └── skills/
+│           └── frontend-design/
+│               ├── SKILL.md
+│               ├── references/
+│               │   ├── design-system-template.md
+│               │   └── component-checklist.md
+│               └── examples/
+│                   └── design-system-example.md
 └── README.md
 ```

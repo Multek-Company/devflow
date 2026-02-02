@@ -9,10 +9,7 @@
   "plugins": [
     {
       "name": "devflow",
-      "source": {
-        "source": "github",
-        "repo": "Multek-Company/devflow"
-      },
+      "source": "./plugins/devflow",
       "description": "Claude Code plugins for enhanced development workflows — frontend design skills, commands, and MCP integrations."
     }
   ]
