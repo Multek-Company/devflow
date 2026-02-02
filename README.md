@@ -4,8 +4,19 @@ A Claude Code plugin that improves frontend code quality by enforcing your proje
 
 ## Features
 
-### Frontend Design Skill
-Automatically activates when building UI components. Reads your project's `design-system.md` file and ensures all frontend code follows defined tokens, spacing, colors, typography, and component patterns.
+### Skills
+
+| Skill | Trigger | Purpose |
+|-------|---------|---------|
+| **Frontend Design** | Building, styling, or modifying UI components | Reads your project's design system and ensures all frontend code follows defined tokens, spacing, colors, typography, and component patterns |
+| **Read Project Docs** | Planning or implementing complex features | Checks `.project-docs/` for architecture and module documentation before exploring source files |
+
+### Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/devflow:create-tailwind-theme` | Extract a Tailwind CSS theme (`@theme`, `:root`, `.dark`) from screenshots |
+| `/devflow:create-design-system` | Interactive Q&A that builds a comprehensive `design-system.md` |
 
 ### MCP Integrations
 
@@ -40,7 +51,16 @@ If you have the repo cloned locally:
 
 ### Design System File
 
-Create a `design-system.md` in your project root (or `docs/`). See `skills/frontend-design/references/design-system-template.md` for a template.
+Create a `design-system.md` in your project root (or `.project-docs/`). You can generate one using:
+
+- `/devflow:create-design-system` — interactive Q&A to build a design system from scratch
+- `/devflow:create-tailwind-theme` — extract theme from screenshots of an existing interface
+
+See `skills/frontend-design/references/design-system-template.md` for a template.
+
+### Project Documentation (optional)
+
+Create a `.project-docs/` directory in your project root with markdown files explaining your architecture, modules, conventions, and integrations. The **Read Project Docs** skill will use these when planning complex features.
 
 ### Environment Variables (Postgres MCP)
 
@@ -72,31 +92,35 @@ The MCP servers install automatically via `npx`:
 
 Once installed, the plugin works automatically:
 
-- **Frontend skill** activates when you ask to build, style, or modify UI components
+- **Frontend Design skill** activates when you ask to build, style, or modify UI components
+- **Read Project Docs skill** activates when planning or implementing complex features
 - **MCP servers** are available as tools — use `/mcp` to verify they're connected
-- Ask Claude to "check the design system" or "follow the design tokens" to explicitly trigger the skill
+- Use `/devflow:create-tailwind-theme` to extract a theme from screenshots
+- Use `/devflow:create-design-system` to build a design system through guided Q&A
 
 ## Plugin Structure
 
 ```
 devflow/                          # marketplace repo
 ├── .claude-plugin/
-│   └── marketplace.json          # plugin catalog
+│   └── marketplace.json
 ├── plugins/
-│   └── devflow/                  # the plugin
+│   └── devflow/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── .mcp.json
 │       ├── commands/
-│       │   └── frontend-design/
-│       │       └── create-design-system.md
+│       │   ├── create-design-system.md
+│       │   └── create-tailwind-theme.md
 │       └── skills/
-│           └── frontend-design/
-│               ├── SKILL.md
-│               ├── references/
-│               │   ├── design-system-template.md
-│               │   └── component-checklist.md
-│               └── examples/
-│                   └── design-system-example.md
+│           ├── frontend-design/
+│           │   ├── SKILL.md
+│           │   ├── references/
+│           │   │   ├── design-system-template.md
+│           │   │   └── component-checklist.md
+│           │   └── examples/
+│           │       └── design-system-example.md
+│           └── read-project-docs/
+│               └── SKILL.md
 └── README.md
 ```
