@@ -1,0 +1,16 @@
+{
+  "name": "devflow",
+  "owner": {
+    "name": "Multek"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for enhanced development workflows"
+  },
+  "plugins": [
+    {
+      "name": "frontend-design",
+      "source": ".",
+      "description": "Builds production-grade, polished interfaces using React, Tailwind CSS, and shadcn/ui — following the project's design system with high attention to detail."
+    }
+  ]
+}
