@@ -1,51 +1,107 @@
 ---
 name: create-design-system
-description: Analyze screenshots of an interface to extract colors, typography, spacing, and generate Tailwind CSS theme variables (@theme block, :root, .dark) ready to use in the project.
+description: Interactive Q&A that builds a comprehensive design-system.md covering stack, branding, typography, icons, layout, component conventions, dark mode, and accessibility.
 arguments:
   - name: output-path
-    description: Where to save the generated CSS (default: prints to chat)
+    description: Where to save design-system.md (default: project root)
     required: false
 ---
 
 # Create Design System
 
-You are extracting a Tailwind CSS theme from visual references (screenshots, mockups, design files).
+You are building a comprehensive design system document through an interactive conversation with the user.
 
 ## Process
 
-1. **Ask for screenshots**: Request the user to share screenshots or images of the interface they want to capture. Read every image provided.
+Walk through the following topics **one group at a time**. For each group, ask the user clear questions using `AskUserQuestion`. Provide sensible defaults so the user can move fast, but let them customize everything.
 
-2. **Extract from the visuals**:
-   - **Color palette**: Identify all colors — backgrounds, text, borders, primary actions, destructive states, accents, brand colors. Extract precise values.
-   - **Typography**: Font families visible, size hierarchy, weight variations
-   - **Spacing patterns**: Padding, gaps, margins used across the interface
-   - **Border radius**: Sharp, rounded, pill — identify the base radius
-   - **Shadows**: Elevation levels used
-   - **Dark/light**: If both themes are shown, extract both
+### 1. Stack
 
-3. **Generate Tailwind CSS output**: Produce a complete CSS file with:
-   - `@theme` block mapping semantic tokens to CSS variables
-   - `:root` with light mode values in oklch format
-   - `.dark` with dark mode values in oklch format
-   - Font family imports if identifiable
-   - The `--radius` base value
+Ask about:
+- **Framework**: Next.js, Remix, Vite + React, Astro, etc.
+- **CSS approach**: Tailwind CSS, CSS Modules, styled-components, vanilla CSS
+- **Component library**: shadcn/ui, Radix, MUI, Chakra, Headless UI, custom
+- **State management**: React Context, Zustand, Redux, Jotai, none yet
 
-   Follow the shadcn/ui variable naming convention:
-   `--primary`, `--primary-foreground`, `--secondary`, `--muted`, `--destructive`, `--accent`, `--background`, `--foreground`, `--card`, `--border`, `--input`, `--ring`, etc.
+### 2. Branding
 
-4. **Present the CSS** to the user so they can review and paste into their `app.css` or `globals.css`.
+Ask about:
+- **Brand name**: Name of the product/project
+- **Personality/tone**: e.g. professional & trustworthy, playful & casual, bold & edgy, minimal & refined
+- **Existing brand colors**: Any hex/rgb values, or a general direction (e.g. "blues and greens")
+- **Existing guidelines**: Link or file to existing brand guidelines, if any
+- **Existing logos**: Ask for clear paths regarding brand logos in the project.
 
-5. **Generate a `design-system.md`** with the conventions CSS cannot express: typography hierarchy (which classes for H1, H2, body, caption), component usage patterns, spacing conventions, layout rules. Never duplicate color values — those live in the CSS.
+### 3. Typography
+
+Ask about:
+- **Font preferences**: Specific fonts already chosen, or style preference (geometric sans, humanist, serif, monospace)
+- **Type scale needs**: Standard web scale, compact/dense UI, editorial/large headings
+- **Font source**: Google Fonts, self-hosted, system fonts
+
+### 4. Icons
+
+Ask about:
+- **Icon library**: Lucide, Heroicons, Phosphor, Tabler, FontAwesome, custom SVGs
+- **Icon style**: Outline, solid, duotone
+
+### 5. Language & i18n
+
+Ask about:
+- **Primary language**: English, or other
+- **RTL support**: Needed?
+- **i18n setup**: Already configured? Which library (next-intl, react-i18next, none)?
+
+### 6. Layout Patterns
+
+Ask about:
+- **Navigation**: Sidebar, top nav, both, bottom tabs (mobile)
+- **Content width**: Fixed max-width, full-width, mixed
+- **Responsive strategy**: Mobile-first, desktop-first, specific breakpoints of note
+
+### 7. Component Conventions
+
+Ask about:
+- **Button styles**: Rounded, pill, square? Primary/secondary/ghost variants needed?
+- **Form patterns**: Inline labels, floating labels, stacked? Validation style?
+- **Cards**: Bordered, shadow, flat? Consistent or varied?
+- **Modals/dialogs**: Centered overlay, slide-over panel, drawer?
+
+### 8. Dark Mode
+
+Ask about:
+- **Required?**: Yes/no
+- **Default theme**: Light, dark, or system preference
+- **Implementation**: CSS variables, class-based toggle, media query only
+
+### 9. Accessibility
+
+Ask about:
+- **WCAG level target**: AA (standard), AAA (enhanced), or no specific target
+- **Focus indicators**: Default browser, custom styled
+- **Motion sensitivity**: Respect `prefers-reduced-motion`?
 
 ## Output
 
-Two artifacts:
-1. **Tailwind CSS** — `@theme` block + `:root` + `.dark` ready to paste into the project's stylesheet
-2. **`design-system.md`** — conventions doc covering typography, spacing, component patterns, layout
+After gathering all answers, generate a single **`design-system.md`** file that covers:
+
+1. **Overview** — Project name, stack summary, design philosophy
+2. **Colors** — Primary, secondary, accent, destructive, muted palettes with semantic naming. If the user provided brand colors, build the palette around them. If not, propose a cohesive palette matching their stated tone.
+3. **Typography** — Font families, type scale (H1–H6, body, caption, overline), weight usage, line heights
+4. **Spacing** — Base unit, spacing scale, when to use tight vs generous spacing
+5. **Icons** — Library, size conventions, usage guidelines
+6. **Layout** — Navigation pattern, content width, grid/column system, responsive breakpoints
+7. **Component Patterns** — Buttons, forms, cards, modals, tables, lists — conventions for each
+8. **Dark Mode** — Strategy, token mapping approach
+9. **Accessibility** — Target level, focus management, motion, contrast requirements
+10. **Language & i18n** — Direction, translation approach
+
+Write the file to the path specified by `output-path`, or to the project root as `design-system.md` by default.
 
 ## Important
 
-- Extract real values from the screenshots. Never use generic defaults.
-- Use oklch color format for all values.
-- Match shadcn/ui token naming exactly so components work out of the box.
-- If a color role isn't visible in the screenshots, ask the user rather than guessing.
+- Ask questions in batches (group related topics) — don't overwhelm with everything at once.
+- Provide smart defaults for every question so the user can accept and move on quickly.
+- The output should be a practical reference document, not abstract theory. Include concrete class names, token names, and component examples where relevant.
+- If the project already has a CSS theme (Tailwind `@theme` block, CSS variables), read it first and incorporate those existing tokens into the design system doc rather than inventing new ones.
+- If no theme exists yet, suggest running `create-tailwind-theme` to generate one from visual references.

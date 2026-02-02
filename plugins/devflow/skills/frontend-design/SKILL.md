@@ -15,10 +15,10 @@ The design system is the **project's CSS** — the `@theme` block, `:root` varia
 Before writing any frontend code:
 
 1. **Read the project's CSS** (`app.css`, `globals.css`, or equivalent) to understand all tokens
-2. **Check for a `design-system.md`** (project root, `docs/`, or `.claude/`) for conventions CSS can't express — typography hierarchy, component patterns, layout rules
+2. **Check for a `design-system.md`** (project root, `docs/`, or `.claude/`) for conventions CSS can't express — typography hierarchy, component patterns, layout rules, branding tone etc.
 3. **Check existing components** for established patterns
 
-If the project has no Tailwind theme configured, suggest using the `create-design-system` command to generate one from visual references.
+If the project has no Tailwind theme configured, suggest using the `create-tailwind-theme` command to generate one from visual references.
 
 ## Stack Conventions
 
