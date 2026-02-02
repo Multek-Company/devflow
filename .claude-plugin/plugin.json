@@ -1,0 +1,9 @@
+{
+  "name": "devflow",
+  "version": "0.2.0",
+  "description": "Production development with design system enforcement. React, Tailwind CSS, shadcn/ui. Includes MCP integrations for Postgres, Context7, Playwright, and Chrome DevTools.",
+  "author": {
+    "name": "Multek"
+  },
+  "keywords": ["frontend", "design-system", "ui", "react", "tailwind", "shadcn", "mcp", "postgres", "playwright", "chrome-devtools"]
+}
